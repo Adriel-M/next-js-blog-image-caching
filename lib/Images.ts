@@ -4,8 +4,7 @@ const importFromFolder = (context: RequireContext) => {
 
   for (const key of context.keys()) {
     // keys are duplicated in a sense that there are two keys for the same image
-    // one with a relative path inside images folder and the other with images
-    // folder a prefix
+    // one with a relative path from the import folder and a full path from the root
     if (!key.startsWith('public/static/images')) continue
 
     const newKey = key.replace('public/static/images', '/static/images')
@@ -16,7 +15,7 @@ const importFromFolder = (context: RequireContext) => {
 }
 
 const getImages = () => {
-  const keyToModule = importFromFolder(require.context('../public/static/images', true, /\.(png|jpe?g|svg)$/))
+  const keyToModule = importFromFolder(require.context('../public/static/images', true, /\.(png|jpe?g|svg|webp)$/))
   const keyToPath: Record<string, string> = {}
 
   for (const [key, value] of Object.entries(keyToModule)) {
