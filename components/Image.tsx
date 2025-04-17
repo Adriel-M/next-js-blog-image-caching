@@ -2,8 +2,15 @@ import NextImage, { ImageProps } from 'next/image'
 
 const basePath = process.env.BASE_PATH
 
-const Image = ({ src, ...rest }: ImageProps) => (
-  <NextImage src={`${basePath || ''}${src}`} {...rest} />
-)
+import images from '../lib/Images'
+
+const Image = ({ src, ...rest }: ImageProps) => {
+  if (typeof src === 'string' && src.startsWith('/static/images/')) {
+    const imageSrc = images[src]
+    // do a static import since we're not putting images in the public folder
+    return <NextImage {...rest} src={imageSrc} />
+  }
+  return <NextImage src={`${basePath || ''}${src}`} {...rest} />
+}
 
 export default Image
