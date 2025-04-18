@@ -8,7 +8,7 @@ const Image = ({ src, ...rest }: ImageProps) => {
   if (typeof src === 'string' && src.startsWith('/static/images/')) {
     const imageSrc = images[src]
     // do a static import since we're not putting images in the public folder
-    return <NextImage {...rest} src={imageSrc} />
+    return <NextImage src={imageSrc} {...rest} />
   }
   return <NextImage src={`${basePath || ''}${src}`} {...rest} />
 }
