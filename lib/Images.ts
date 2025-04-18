@@ -15,7 +15,8 @@ const importFromFolder = (context: RequireContext) => {
 }
 
 const getImages = () => {
-  const keyToModule = importFromFolder(require.context('../public/static/images', true, /\.(png|jpe?g|svg|webp)$/))
+  const context = require.context('../public/static/images', true, /\.(png|jpe?g|svg|webp)$/)
+  const keyToModule = importFromFolder(context)
   const keyToPath: Record<string, string> = {}
 
   for (const [key, value] of Object.entries(keyToModule)) {
